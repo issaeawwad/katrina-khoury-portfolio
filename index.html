@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katrina Khoury — Graphic Designer & Illustrator</title>
+  <meta name="description" content="California-based graphic designer and illustrator specializing in brand identity and visual storytelling.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=DM+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      --canvas:      #F5F5F2;
+      --ink:         #111111;
+      --dust:        #6E6E6A;
+      --wire:        #D5D5D1;
+      --signal:      #3A2FD9;
+
+      --margin:      80px;
+      --section-gap: 128px;
+      --work-gap:    2px;
+
+      --f-display:   'Fraunces', serif;
+      --f-body:      'DM Sans', sans-serif;
+      --f-mono:      'DM Mono', monospace;
+    }
+
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: var(--f-body);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    a:focus-visible {
+      outline: 2px solid var(--signal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px var(--margin);
+      transition: background 0.35s ease, border-color 0.35s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.is-scrolled {
+      background: var(--canvas);
+      border-color: var(--wire);
+    }
+
+    .nav__name {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+      font-variation-settings: 'opsz' 9;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
+    }
+
+    .nav__name:hover { color: var(--signal); }
+
+    .nav__links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav__link {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--dust);
+      transition: color 0.2s ease;
+    }
+
+    .nav__link:hover { color: var(--signal); }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-columns: 45fr 55fr;
+      min-height: 100svh;
+    }
+
+    /* Left column: text */
+    .hero__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 88px var(--margin) 56px;
+    }
+
+    .hero__coords {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--dust);
+    }
+
+    .hero__bottom {}
+
+    .hero__name {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-variation-settings: 'opsz' 144;
+      font-size: clamp(52px, 6.2vw, 96px);
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+
+    .hero__meta {
+      margin-top: 16px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--dust);
+    }
+
+    /* Right column: crossfading images */
+    .hero__images {
+      position: relative;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    .hero__image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @keyframes hero-crossfade {
+      0%   { opacity: 1; }
+      40%  { opacity: 1; }
+      50%  { opacity: 0; }
+      90%  { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .hero__image--1 {
+      animation: hero-crossfade 12s ease-in-out infinite;
+    }
+
+    .hero__image--2 {
+      animation: hero-crossfade 12s ease-in-out infinite;
+      animation-delay: -6s;
+    }
+
+    /* ── Work grid ───────────────────────────────────────── */
+    .work {
+      display: flex;
+      flex-direction: column;
+      gap: var(--work-gap);
+    }
+
+    .work-row {
+      display: flex;
+      gap: var(--work-gap);
+    }
+
+    /* Base work item */
+    .item {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      background: #1a1a1a; /* shows while image loads */
+    }
+
+    .item__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .item:hover .item__img {
+      transform: scale(1.04);
+    }
+
+    /* Gradient + info overlay */
+    .item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10, 10, 10, 0.75) 0%,
+        rgba(10, 10, 10, 0.1) 45%,
+        transparent 65%
+      );
+      display: flex;
+      align-items: flex-end;
+      padding: 28px 32px;
+    }
+
+    .item__info {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      transform: translateY(10px);
+      opacity: 0;
+      transition:
+        transform 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity   0.22s ease;
+    }
+
+    .item:hover .item__info,
+    .item:focus-within .item__info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .item__title {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-variation-settings: 'opsz' 40;
+      font-size: 22px;
+      line-height: 1.15;
+      color: #fff;
+    }
+
+    .item__cat {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Sizing variants */
+    .item--full  { height: 65vh; min-height: 440px; }
+    .item--full-short { height: 50vh; min-height: 360px; }
+    .item--half  { flex: 1; height: 52vh; min-height: 360px; }
+    .item--large { flex: 62; height: 48vh; min-height: 330px; }
+    .item--small { flex: 38; height: 48vh; min-height: 330px; }
+
+    /* ── About ───────────────────────────────────────────── */
+    .about {
+      padding: 96px var(--margin) 80px;
+      max-width: 860px;
+    }
+
+    .section-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-bottom: 24px;
+    }
+
+    .about__heading {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-variation-settings: 'opsz' 72;
+      font-size: clamp(36px, 3.8vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+
+    .about__body {
+      font-size: 17px;
+      color: var(--dust);
+      line-height: 1.72;
+      max-width: 600px;
+    }
+
+    .about__skillset {
+      margin-top: 32px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dust);
+      line-height: 2.2;
+    }
+
+    /* ── Contact ─────────────────────────────────────────── */
+    .contact {
+      padding: 80px var(--margin);
+      border-top: 1px solid var(--wire);
+    }
+
+    .contact__heading {
+      font-family: var(--f-display);
+      font-weight: 900;
+      font-variation-settings: 'opsz' 144;
+      font-size: clamp(52px, 6.5vw, 96px);
+      line-height: 0.93;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 36px;
+    }
+
+    .contact__row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .contact__email {
+      font-family: var(--f-body);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      border-bottom: 1px solid var(--wire);
+      padding-bottom: 3px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .contact__email:hover {
+      color: var(--signal);
+      border-color: var(--signal);
+    }
+
+    .contact__links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .contact__link {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--dust);
+      transition: color 0.2s ease;
+    }
+
+    .contact__link:hover { color: var(--signal); }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer {
+      padding: 22px var(--margin);
+      border-top: 1px solid var(--wire);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer__copy {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dust);
+    }
+
+    .footer__status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dust);
+    }
+
+    .footer__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal);
+      flex-shrink: 0;
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root {
+        --margin:      24px;
+        --section-gap: 80px;
+      }
+
+      .nav { padding: 18px var(--margin); }
+
+      .nav__links { gap: 20px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 56vw auto;
+        min-height: 100svh;
+      }
+
+      .hero__images {
+        order: -1;
+        min-height: 280px;
+      }
+
+      .hero__text {
+        padding: 40px var(--margin) 48px;
+      }
+
+      .work-row { flex-direction: column; }
+
+      .item--half,
+      .item--large,
+      .item--small {
+        flex: none;
+        height: 58vw;
+        min-height: 220px;
+      }
+
+      .item--full,
+      .item--full-short {
+        height: 72vw;
+        min-height: 240px;
+      }
+
+      .item__overlay { padding: 20px; }
+
+      .item__title { font-size: 18px; }
+
+      .contact__heading { margin-bottom: 40px; }
+
+      .footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ── Reduced motion ──────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .item__img       { transition: none; }
+      .item__info      { transition: none; }
+      .hero__image--1  { animation: none; opacity: 1; }
+      .hero__image--2  { animation: none; opacity: 0; }
+      html             { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="#" class="nav__name">Katrina Khoury</a>
+    <ul class="nav__links" role="list">
+      <li><a href="#work" class="nav__link">Work</a></li>
+      <li><a href="#about" class="nav__link">About</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ── Hero ── -->
+  <section class="hero" aria-labelledby="hero-name">
+
+    <!-- Left: text -->
+    <div class="hero__text">
+      <p class="hero__coords" aria-hidden="true">Based in Cali&nbsp;&nbsp;·&nbsp;&nbsp;2026</p>
+      <div class="hero__bottom">
+        <h1 class="hero__name" id="hero-name">KATRINA<br>KHOURY</h1>
+        <p class="hero__meta">Graphic Designer&nbsp;·&nbsp;Illustrator<br>Open to work</p>
+      </div>
+    </div>
+
+    <!-- Right: crossfading images (decorative, aria-hidden) -->
+    <div class="hero__images" aria-hidden="true">
+      <img class="hero__image hero__image--1"
+           src="content/ARTWORK/Lace%20Leaf%20Poster/LaceleafPosterMockup.JPG"
+           alt=""
+           loading="eager">
+      <img class="hero__image hero__image--2"
+           src="content/ARTWORK/Sands%20Coffee%20Brandmark/SANDStshirt.jpg"
+           alt=""
+           loading="eager">
+    </div>
+
+  </section>
+
+
+  <!-- ── Work ── -->
+  <section id="work" aria-label="Selected work">
+    <div class="work">
+
+      <!-- Row 1: Full bleed — Sands Coffee -->
+      <a href="project.html?id=sands" class="item item--full"
+         aria-label="View Sands Coffee Brandmark project">
+        <img class="item__img"
+             src="content/ARTWORK/Sands%20Coffee%20Brandmark/SANDStshirt.jpg"
+             alt="Sands Coffee — brand identity on apparel mockup"
+             loading="eager"
+             width="1600" height="900">
+        <div class="item__overlay" aria-hidden="true">
+          <div class="item__info">
+            <span class="item__title">Sands Coffee Brandmark</span>
+            <span class="item__cat">Brand Identity</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Row 2: 2-up — Baba's + Lace Leaf -->
+      <div class="work-row">
+        <a href="project.html?id=babas" class="item item--half"
+           aria-label="View Baba's Coffee Corner project">
+          <img class="item__img"
+               src="content/ARTWORK/BABAS/IMG_5549.jpg"
+               alt="Baba's Coffee Corner — brand identity collateral in context"
+               loading="lazy"
+               width="800" height="600">
+          <div class="item__overlay" aria-hidden="true">
+            <div class="item__info">
+              <span class="item__title">Baba's Coffee Corner</span>
+              <span class="item__cat">Brand Identity</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="project.html?id=lace-leaf" class="item item--half"
+           aria-label="View Lace Leaf poster project">
+          <img class="item__img"
+               src="content/ARTWORK/Lace%20Leaf%20Poster/LaceleafPoster2026%202.JPG"
+               alt="Lace Leaf — editorial poster design"
+               loading="lazy"
+               width="800" height="1000">
+          <div class="item__overlay" aria-hidden="true">
+            <div class="item__info">
+              <span class="item__title">Lace Leaf</span>
+              <span class="item__cat">Poster Design</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Row 3: Asymmetric — Crystal 62% + Food Deserts 38% -->
+      <div class="work-row">
+        <a href="project.html?id=crystal" class="item item--large"
+           aria-label="View Crystal business cards project">
+          <img class="item__img"
+               src="content/ARTWORK/CRYSTAL/FullSizeRender_VSCO%203.JPG"
+               alt="Crystal — custom business cards, styled and printed"
+               loading="lazy"
+               width="1000" height="700">
+          <div class="item__overlay" aria-hidden="true">
+            <div class="item__info">
+              <span class="item__title">Crystal</span>
+              <span class="item__cat">Print Design</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="project.html?id=food-deserts" class="item item--small"
+           aria-label="View Food Deserts poster project">
+          <img class="item__img"
+               src="content/ARTWORK/Food%20Deserts%20Poster/fooddesertsmockup.jpg"
+               alt="Food Deserts — social-issue poster with hand lettering"
+               loading="lazy"
+               width="600" height="800">
+          <div class="item__overlay" aria-hidden="true">
+            <div class="item__info">
+              <span class="item__title">Food Deserts</span>
+              <span class="item__cat">Poster · Lettering</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Row 4: Full bleed (shorter) — Visual Storytelling -->
+      <a href="project.html?id=visual-storytelling" class="item item--full-short"
+         aria-label="View Visual Storytelling project">
+        <img class="item__img"
+             src="content/ARTWORK/Visual%20Storytelling/Khoury_KatrinaP1Mockup.png"
+             alt="Visual Storytelling — editorial illustration and layout"
+             loading="lazy"
+             width="1600" height="900">
+        <div class="item__overlay" aria-hidden="true">
+          <div class="item__info">
+            <span class="item__title">Visual Storytelling</span>
+            <span class="item__cat">Illustration</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ── About ── -->
+  <section id="about" class="about" aria-labelledby="about-heading">
+    <p class="section-label">About</p>
+    <h2 class="about__heading" id="about-heading">Design that earns its keep.</h2>
+    <p class="about__body">
+      Katrina Khoury builds visual identities that know exactly who they're talking to.
+      Based in California, she works across brand, print, and illustration — most recently
+      creating complete identity systems for Baba's Coffee Corner and Sands Coffee.
+      BA Design Studies, San José State University, 2025, cum laude.
+    </p>
+    <p class="about__skillset" aria-label="Skills">
+      Brand identity&nbsp;&nbsp;·&nbsp;&nbsp;Typography&nbsp;&nbsp;·&nbsp;&nbsp;Illustration&nbsp;&nbsp;·&nbsp;&nbsp;Print design<br>
+      Adobe Illustrator&nbsp;&nbsp;·&nbsp;&nbsp;InDesign&nbsp;&nbsp;·&nbsp;&nbsp;Photoshop
+    </p>
+  </section>
+
+
+  <!-- ── Contact ── -->
+  <section id="contact" class="contact" aria-labelledby="contact-heading">
+    <p class="section-label">Currently available</p>
+    <h2 class="contact__heading" id="contact-heading">
+      Let's make<br>something.
+    </h2>
+    <div class="contact__row">
+      <a href="mailto:katrinakhoury11@gmail.com" class="contact__email">
+        katrinakhoury11@gmail.com
+      </a>
+      <nav class="contact__links" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/katrina-khoury-7559a2228/"
+           class="contact__link"
+           target="_blank"
+           rel="noopener noreferrer">LinkedIn</a>
+        <a href="content/RESUME/KatrinaKhouryResume.pdf"
+           class="contact__link"
+           target="_blank"
+           rel="noopener noreferrer">Resume</a>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <span class="footer__copy">© 2026 Katrina Khoury</span>
+    <span class="footer__status">
+      <span class="footer__dot" aria-hidden="true"></span>
+      Open to work
+    </span>
+  </footer>
+
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 48);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
